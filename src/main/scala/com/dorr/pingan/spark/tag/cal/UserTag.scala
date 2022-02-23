@@ -2,7 +2,7 @@ package com.dorr.pingan.spark.tag.cal
 
 import java.util
 
-class UserTag {
+class UserTag extends Serializable {
   var id: String = _;
   var fx: Double = _;
   var zx: Double = _;

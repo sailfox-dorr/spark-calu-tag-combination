@@ -8,14 +8,27 @@ import org.apache.spark.sql.SparkSession
 import scala.collection.mutable.ListBuffer
 import scala.io.Source
 
-object Job {
+object Job2 {
   def main(args: Array[String]): Unit = {
-    val dimension = 100;
-    val parallelism = 20;
+    var dimension = 100;
+    var parallelism = 20;
+    var path = "E:\\github\\My\\DataStructure\\src\\main\\resources\\puhui_num.csv"
+    args.sliding(2, 2).toList.collect {
+      case Array("--dimension", argDimension: String) => dimension = argDimension.toInt
+      case Array("--parallelism", argParallelism: String) => parallelism = argParallelism.toInt
+      case Array("--path", argPath: String) => path = argPath
+    }
     val spark = SparkSession.builder().appName("tags cal")
-      .master("local[100]")
+//      .master("local[100]")
       .enableHiveSupport().getOrCreate()
-    val path = "E:\\github\\My\\DataStructure\\src\\main\\resources\\puhui_num.csv"
+    var dataBit = ListBuffer[UserTag]()
+    for (line <- Source.fromFile(path, "utf-8").getLines()) {
+      val split = line split ",\\{"
+      val part1 = split(0).split(",")
+      val part2 = split(1).substring(0, split(1).length - 1)
+      dataBit += new UserTag(part1(0), part1(1).toDouble, 1.0).setTags(part2);
+    }
+    val dataBits = spark.sparkContext.broadcast(dataBit)
     val tags: RDD[Int] = spark.sparkContext.parallelize((1 to dimension), 5)
     tags.flatMap(num => {
       val list = ListBuffer[String]()
@@ -28,18 +41,12 @@ object Job {
     }
     ).repartition(parallelism)
       .foreachPartition(partition => {
-        val start = System.currentTimeMillis()
-        var dataBit = ListBuffer[UserTag]()
-        for (line <- Source.fromFile(path, "utf-8").getLines()) {
-          val split = line split ",\\["
-          val part1 = split(0).split(",")
-          val part2 = split(1).substring(0, split(1).length - 1)
-          dataBit += new UserTag(part1(0), part1(1).toDouble, 1.0).setTags(part2);
-        }
-        val end = System.currentTimeMillis()
+//        val start = System.currentTimeMillis()
+
+//        val end = System.currentTimeMillis()
         var key = ""
         var score = 0.0
-        println(s"读取数据花费了${end - start} ms")
+//        println(s"读取数据花费了${end - start} ms")
         // 可以使用redis 做存储
         partition.foreach(
           zuhe => {
@@ -51,7 +58,7 @@ object Job {
               var fx = 0.0
               var zx = 0.0
               val clone = zuhe4.clone().asInstanceOf[util.BitSet]
-              for (data <- dataBit) {
+              for (data <- dataBits.value) {
                 zuhe4 and data.tagsBit
                 if (zuhe4.cardinality() == 4) {
                   fx += data.fx

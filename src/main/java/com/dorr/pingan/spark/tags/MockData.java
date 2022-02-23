@@ -15,17 +15,23 @@ public class MockData {
 
 
     public static void main(String[] args) throws FileNotFoundException {
-        Faker faker = new Faker(Locale.ENGLISH);
-//        PrintStream printStream = new PrintStream("E:\\github\\My\\DataStructure\\src\\main\\resources\\puhui.csv");
-        PrintStream printStream = new PrintStream("E:\\github\\My\\DataStructure\\src\\main\\resources\\puhui_num.csv");
-        System.setOut(printStream);
-        for (int i = 0; i < 200000; i++) {
-            String id = faker.name().nameWithMiddle().replace(" ", "") + new Random().nextInt(100);
-            double fx = new Random().nextInt(2);
-            Set<String> set = getZuheNum(2000);
-            DataBeam dataBeam = new DataBeam(set, id, fx, 1);
-            System.out.println(dataBeam);
-        }
+//        byte[] bytes = new byte[3];
+//        bytes[5] = 1;
+//        System.out.println(bytes);
+//        System.out.println(bytes.length);
+        String s = "adsad,{sadas}";
+        System.out.println(s.split(",\\{").length);
+//        Faker faker = new Faker(Locale.ENGLISH);
+////        PrintStream printStream = new PrintStream("E:\\github\\My\\DataStructure\\src\\main\\resources\\puhui.csv");
+//        PrintStream printStream = new PrintStream("E:\\github\\My\\DataStructure\\src\\main\\resources\\puhui_num.csv");
+//        System.setOut(printStream);
+//        for (int i = 0; i < 200000; i++) {
+//            String id = faker.name().nameWithMiddle().replace(" ", "") + new Random().nextInt(100);
+//            double fx = new Random().nextInt(2);
+//            Set<String> set = getZuheNum(2000);
+//            DataBeam dataBeam = new DataBeam(set, id, fx, 1);
+//            System.out.println(dataBeam);
+//        }
     }
 
     private static int getRandom(int num) {
