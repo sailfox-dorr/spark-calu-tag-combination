@@ -96,6 +96,22 @@
                 </executions>
             </plugin>
         </plugins>
+
+        <resources>
+            <resource>
+                <!-- 设定主资源目录  -->
+                <directory>src/main/resource</directory>
+
+                <!-- maven default生命周期，process-resources阶段执行maven-resources-plugin插件的resources目标处理主资源目下的资源文件时，只处理如下配置中包含的资源类型 -->
+                <includes>
+                    <include>**/*.csv</include>
+                    <include>/*.csv</include>
+                </includes>
+
+                  <filtering>true</filtering>
+            </resource>
+        </resources>
+
     </build>
 
 </project>

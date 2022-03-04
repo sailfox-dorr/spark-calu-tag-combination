@@ -15,68 +15,62 @@ public class MockData {
 
 
     public static void main(String[] args) throws FileNotFoundException {
-//        byte[] bytes = new byte[3];
-//        bytes[5] = 1;
-//        System.out.println(bytes);
-//        System.out.println(bytes.length);
-        String s = "adsad,{sadas}";
-        System.out.println(s.split(",\\{").length);
-//        Faker faker = new Faker(Locale.ENGLISH);
+
+        Faker faker = new Faker(Locale.ENGLISH);
 ////        PrintStream printStream = new PrintStream("E:\\github\\My\\DataStructure\\src\\main\\resources\\puhui.csv");
-//        PrintStream printStream = new PrintStream("E:\\github\\My\\DataStructure\\src\\main\\resources\\puhui_num.csv");
-//        System.setOut(printStream);
-//        for (int i = 0; i < 200000; i++) {
-//            String id = faker.name().nameWithMiddle().replace(" ", "") + new Random().nextInt(100);
-//            double fx = new Random().nextInt(2);
-//            Set<String> set = getZuheNum(2000);
-//            DataBeam dataBeam = new DataBeam(set, id, fx, 1);
-//            System.out.println(dataBeam);
-//        }
+        PrintStream printStream = new PrintStream("/Users/dorr/Documents/workspace/2022/code/bigdata/source/self/spark-calu-tag-combination/src/main/resource/puhui_num.csv");
+        for (int i = 0; i < 200000; i++) {
+            String id = faker.name().nameWithMiddle().replace(" ", "") + new Random().nextInt(100);
+            double fx = new Random().nextInt(2);
+            Set<String> set = getZuheNum(2000);
+            DataBeam dataBeam = new DataBeam(set, id, fx, 1);
+            System.out.println(dataBeam);
+        }
     }
 
     private static int getRandom(int num) {
         return random.nextInt(base.length());
     }
 
-    private static Set<String> getRandomString(int len) {
-        String[] tags = getZuhe(20);
-        HashSet<String> set = new HashSet<>();
-        for (int i = 0; i < len; i++) {
-            int index = getRandom(tags.length);
-//            System.out.print(tags[index] + ",");
-            set.add(tags[index]);
-        }
-//        System.out.println(set.size());
-
-        return set;
-    }
+//    private static Set<String> getRandomString(int len) {
+//        String[] tags = getZuhe(20);
+//        HashSet<String> set = new HashSet();
+//        for (int i = 0; i < len; i++) {
+//            int index = getRandom(tags.length);
+////            System.out.print(tags[index] + ",");
+//            set.add(tags[index]);
+//        }
+////        System.out.println(set.size());
+//
+//        return set;
+//    }
 
 
     private static Set<String> getZuheNum(int len) {
-        HashSet<String> set = new HashSet<>();
+        HashSet<String> set = new HashSet();
         for (int i = 0; i < len; i++) {
             set.add(random.nextInt(800) + "");
         }
         return set;
     }
 
-    private static String[] getZuhe(int len) {
-        String[] split = base.split("");
-        HashSet<String> set = new HashSet<>();
-        for (int i = 0; i < 20; i++) {
-            set.add(split[i]);
-        }
-        for (int i = 0; i <= len; i++) {
-            String s1 = split[i];
-            for (int j = i + 1; j < split.length; j++) {
-                String s2 = s1.concat(split[j]);
-                set.add(s2);
-            }
-        }
-        return String.join(",", set).split(",");
-
-
-    }
+//    private static String[] getZuhe(int len) {
+//        String[] split = base.split("");
+//        HashSet<String> set = new HashSet();
+//        for (int i = 0; i < 20; i++) {
+//            set.add(split[i]);
+//        }
+//        for (int i = 0; i <= len; i++) {
+//            String s1 = split[i];
+//            for (int j = i + 1; j < split.length; j++) {
+//                String s2 = s1.concat(split[j]);
+//                set.add(s2);
+//            }
+//        }
+//        return String.join(",",set)
+//                .split(",");
+//
+//    }
 
     static class DataBeam {
         Set<String> tags;
@@ -114,7 +108,7 @@ public class MockData {
         }
 
         public DataBeam setTags(String arr) {
-            HashSet<String> set = new HashSet<>();
+            HashSet<String> set = new HashSet();
             for (String s : arr.split(",")) {
                 set.add(s);
             }

@@ -9,7 +9,7 @@
 //    BitSet tags;
 //    String[] tag_arr;
 //
-//    public Data(String id, double fx, double zx) {
+//    publi
 //        this.id = id;
 //        this.fx = fx;
 //        this.zx = zx;

@@ -44,6 +44,7 @@ object Job {
         partition.foreach(
           zuhe => {
             val zuhe3 = zuhe.split("_")
+            // 可以根据databits 做一个filter 去除一些不会出现的组合
             for (i4 <- zuhe3(2).toInt to dimension) {
               var zuhe4 = new util.BitSet()
               zuhe3.foreach(s => zuhe4.set(s.toInt))
