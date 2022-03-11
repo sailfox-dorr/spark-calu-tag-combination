@@ -19,7 +19,7 @@ public class MockData {
         Faker faker = new Faker(Locale.ENGLISH);
 ////        PrintStream printStream = new PrintStream("E:\\github\\My\\DataStructure\\src\\main\\resources\\puhui.csv");
         PrintStream printStream = new PrintStream("/Users/dorr/Documents/workspace/2022/code/bigdata/source/self/spark-calu-tag-combination/src/main/resource/puhui_num.csv");
-        for (int i = 0; i < 200000; i++) {
+        for (int i = 0; i < 200; i++) {
             String id = faker.name().nameWithMiddle().replace(" ", "") + new Random().nextInt(100);
             double fx = new Random().nextInt(2);
             Set<String> set = getZuheNum(2000);
